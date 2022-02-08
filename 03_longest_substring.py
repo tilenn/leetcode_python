@@ -14,11 +14,9 @@ def lengthOfLongestSubstring(s):
         if s not in appearances.keys():
             appearances[s] = i
         else:
-            if appearances[s] + 1 > start_idx:
-                start_idx = appearances[s] + 1
+            start_idx = max(appearances[s] + 1, start_idx)
             appearances[s] = i
-        if end_idx - start_idx + 1 > longest_substring:
-            longest_substring = end_idx - start_idx + 1
+        longest_substring = max(end_idx - start_idx + 1, longest_substring)
 
     return longest_substring
 
