@@ -1,28 +1,25 @@
 def longestPalindrome(s):
-    # pogledamo vse substringe dolzine len(s), itd.
-    start_idx = 0
+    najdaljsi = ""
+    len_najdaljsi = 0
 
-    # len(s) - x == koliko je substringu dolzine x
-    x = len(s)
+    # vsako crko razsirimo naprej levo in desno
+    for i in range(len(s)):
+        l, r = i, i
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            if (r - l + 1) > len_najdaljsi:
+                najdaljsi = s[l : r + 1]
+                len_najdaljsi = r - l + 1
+            l -= 1
+            r += 1
 
-    while True:
-        # substring dolzine 0 ni relevanten
-        if x == 0:
-            break
-        for i in range(len(s) - x + 1):
-            # substring in preverimo ali je polindrom
-            tmp = s[start_idx + i : start_idx + x + i]
-            tmp_rev = tmp[::-1]
-
-            if tmp == tmp_rev and tmp_rev in tmp:
-                return tmp
-        x = x - 1
-
-    return s
+        l, r = i, i + 1
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            if (r - l + 1) > len_najdaljsi:
+                najdaljsi = s[l : r + 1]
+                len_najdaljsi = r - l + 1
+            l -= 1
+            r += 1
+    return najdaljsi
 
 
-case_1 = "babad"
-case_2 = "cbbd"
-
-print(longestPalindrome(case_1))
-print(longestPalindrome(case_2))
+print(longestPalindrome("bb"))
